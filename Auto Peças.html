@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<title>Tem Tudo Auto Acessórios e Tapeçaria — Tupã, SP</title>
+<meta name="description" content="Acessórios automotivos, autopeças multimarcas e tapeçaria automotiva em Tupã - SP. Travas elétricas, vidros elétricos, lanternas, canaletas, maçanetas e reforma de estofados.">
+
+<!-- ======================================================================
+  PARA EDITAR DEPOIS:
+  1) Número do WhatsApp -> procure "CONFIG_WHATSAPP" no <script> no fim do arquivo
+  2) Logo -> procure ".logo-slot" no HTML (seção do cabeçalho) para trocar por uma imagem
+  3) Fotos da loja/produtos -> procure ".foto-placeholder" espalhados pelo HTML
+  4) Horário de funcionamento -> procure "HORÁRIO" no rodapé
+====================================================================== -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --paper:#EFEDE5;
+    --paper-alt:#E7E4D8;
+    --ink:#1A1B1D;
+    --steel:#4B5563;
+    --steel-light:#7A8494;
+    --amber:#E4A22C;
+    --amber-dark:#C88A1D;
+    --rust:#9C3B2E;
+    --rust-dark:#7E2F24;
+    --line:#D3CFC0;
+    --white:#FFFFFF;
+    --wa-green:#25D366;
+    --radius:4px;
+    --shadow: 0 2px 10px rgba(26,27,29,0.08);
+    --shadow-lg: 0 12px 32px rgba(26,27,29,0.14);
+    --maxw: 1180px;
+  }
+
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{ max-width:100%; display:block; }
+  a{ color:inherit; text-decoration:none; }
+  button{ font-family:inherit; cursor:pointer; }
+  ul{ margin:0; padding:0; list-style:none; }
+  h1,h2,h3{ font-family:'Oswald',sans-serif; font-weight:600; margin:0; letter-spacing:0.2px; }
+  .mono{ font-family:'JetBrains Mono',monospace; }
+
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 20px; }
+
+  /* Utility: reveal on scroll */
+  .reveal{ opacity:0; transform:translateY(14px); transition:opacity .5s ease, transform .5s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity:1; transform:none; transition:none; }
+    html{ scroll-behavior:auto; }
+  }
+
+  /* ============ HEADER ============ */
+  header.site{
+    position:sticky; top:0; z-index:50;
+    background:rgba(239,237,229,0.94);
+    backdrop-filter:saturate(140%) blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .header-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:12px 20px;
+    max-width:var(--maxw); margin:0 auto;
+  }
+  .logo-slot{ display:flex; align-items:center; gap:10px; }
+  .logo-mark{
+    width:40px; height:40px; border-radius:6px;
+    background:var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .logo-mark svg{ width:22px; height:22px; }
+  .logo-text{ line-height:1.05; }
+  .logo-text strong{ font-family:'Oswald',sans-serif; font-size:17px; letter-spacing:0.3px; display:block; }
+  .logo-text span{ font-size:10.5px; color:var(--steel); letter-spacing:1.2px; text-transform:uppercase; }
+
+  .header-actions{ display:flex; align-items:center; gap:10px; }
+  .icon-btn{
+    width:40px; height:40px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--white); border:1px solid var(--line);
+  }
+  .icon-btn svg{ width:19px; height:19px; }
+
+  .burger{
+    width:44px; height:44px; border:1px solid var(--line); background:var(--white);
+    border-radius:6px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px;
+  }
+  .burger span{ width:20px; height:2px; background:var(--ink); display:block; transition:transform .25s ease, opacity .25s ease; }
+  .burger.active span:nth-child(1){ transform:translateY(6px) rotate(45deg); }
+  .burger.active span:nth-child(2){ opacity:0; }
+  .burger.active span:nth-child(3){ transform:translateY(-6px) rotate(-45deg); }
+
+  nav.mobile-nav{
+    position:fixed; inset:0 0 0 auto; width:min(320px,84vw); height:100vh;
+    background:var(--ink); color:var(--paper);
+    transform:translateX(100%); transition:transform .3s ease;
+    z-index:60; padding:24px 22px; overflow-y:auto;
+  }
+  nav.mobile-nav.open{ transform:translateX(0); }
+  .nav-overlay{
+    position:fixed; inset:0; background:rgba(0,0,0,0.45); z-index:55;
+    opacity:0; pointer-events:none; transition:opacity .3s ease;
+  }
+  .nav-overlay.open{ opacity:1; pointer-events:auto; }
+  .mobile-nav .close-nav{
+    width:38px; height:38px; border:1px solid rgba(255,255,255,0.25); border-radius:6px;
+    background:transparent; color:var(--paper); display:flex; align-items:center; justify-content:center; margin-bottom:28px;
+  }
+  .mobile-nav a.nav-link{
+    display:block; padding:14px 2px; font-family:'Oswald',sans-serif; font-size:19px;
+    border-bottom:1px solid rgba(255,255,255,0.12);
+  }
+  .mobile-nav .nav-contact{ margin-top:28px; display:flex; flex-direction:column; gap:12px; }
+  .mobile-nav .nav-contact a{
+    display:flex; align-items:center; gap:10px; font-size:14.5px; color:var(--paper);
+    padding:12px 14px; border:1px solid rgba(255,255,255,0.2); border-radius:6px;
+  }
+
+  .desktop-nav{ display:none; }
+
+  /* ============ HERO ============ */
+  .hero{
+    padding:38px 0 44px;
+    background:
+      radial-gradient(circle at 88% -10%, rgba(228,162,44,0.16), transparent 55%),
+      var(--paper);
+    border-bottom:1px solid var(--line);
+    position:relative;
+  }
+  .hero-grid{ display:grid; gap:30px; align-items:center; }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:1px;
+    text-transform:uppercase; color:var(--rust); background:rgba(156,59,46,0.09);
+    padding:6px 10px; border-radius:3px; margin-bottom:16px;
+  }
+  .eyebrow::before{ content:''; width:6px; height:6px; background:var(--rust); border-radius:50%; }
+  .hero h1{
+    font-size:clamp(30px,7vw,50px); line-height:1.07; letter-spacing:0.2px;
+    text-wrap:balance;
+  }
+  .hero h1 em{ font-style:normal; color:var(--rust); }
+  .hero p.lead{
+    margin-top:16px; font-size:17px; color:var(--steel); max-width:46ch;
+  }
+  .hero-ctas{ display:flex; flex-direction:column; gap:12px; margin-top:26px; }
+  @media (min-width:480px){ .hero-ctas{ flex-direction:row; flex-wrap:wrap; } }
+
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:9px;
+    padding:15px 22px; border-radius:6px; font-weight:600; font-size:15.5px;
+    border:1px solid transparent; min-height:52px; text-align:center;
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .btn svg{ width:19px; height:19px; flex-shrink:0; }
+  .btn:active{ transform:scale(0.98); }
+  .btn-wa{ background:var(--wa-green); color:#fff; box-shadow:var(--shadow); }
+  .btn-wa:hover{ background:#1fbd59; }
+  .btn-call{ background:var(--white); color:var(--ink); border-color:var(--ink); }
+  .btn-call:hover{ background:var(--ink); color:var(--paper); }
+  .btn-dark{ background:var(--ink); color:var(--paper); }
+  .btn-outline{ background:transparent; color:var(--ink); border-color:var(--ink); }
+  .btn-block{ width:100%; }
+
+  .hero-tags{
+    margin-top:26px; display:flex; flex-wrap:wrap; gap:8px;
+  }
+  .hero-tags span{
+    font-size:12.5px; font-family:'JetBrains Mono',monospace; color:var(--steel);
+    border:1px solid var(--line); padding:5px 9px; border-radius:3px; background:var(--white);
+  }
+
+  /* pegboard illustration */
+  .hero-visual{ display:none; }
+  .pegboard{
+    background:var(--ink); border-radius:10px; padding:28px;
+    display:grid; grid-template-columns:repeat(4,1fr); gap:18px;
+    box-shadow:var(--shadow-lg);
+  }
+  .peg{
+    aspect-ratio:1; border:1px dashed rgba(239,237,229,0.28); border-radius:8px;
+    display:flex; align-items:center; justify-content:center; position:relative;
+  }
+  .peg::before{
+    content:''; position:absolute; top:8px; left:50%; transform:translateX(-50%);
+    width:6px; height:6px; border-radius:50%; background:rgba(239,237,229,0.35);
+  }
+  .peg svg{ width:34px; height:34px; stroke:var(--amber); }
+  .peg:nth-child(3n) svg{ stroke:var(--paper); }
+
+  /* ============ CATEGORY STRIP (chips) ============ */
+  .chip-strip{
+    display:flex; gap:9px; overflow-x:auto; padding:14px 20px 16px;
+    scrollbar-width:none;
+  }
+  .chip-strip::-webkit-scrollbar{ display:none; }
+  .chip-strip a{
+    flex:0 0 auto; font-size:13px; font-weight:600; padding:9px 14px;
+    border:1px solid var(--line); border-radius:20px; background:var(--white); color:var(--steel);
+    white-space:nowrap;
+  }
+
+  /* ============ SECTION SHELL ============ */
+  section{ padding:52px 0; }
+  .section-head{ margin-bottom:28px; max-width:60ch; }
+  .section-head h2{ font-size:clamp(24px,5vw,32px); }
+  .section-head p{ color:var(--steel); margin-top:8px; font-size:15.5px; }
+  .section-alt{ background:var(--paper-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+
+  /* ============ CATEGORY GRID (signature: parts tag cards) ============ */
+  .tag-grid{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:14px;
+  }
+  @media (min-width:640px){ .tag-grid{ grid-template-columns:repeat(3,1fr); } }
+  @media (min-width:960px){ .tag-grid{ grid-template-columns:repeat(4,1fr); gap:16px; } }
+
+  .part-tag{
+    background:var(--white); border:1px solid var(--line); border-radius:6px;
+    padding:18px 16px 16px; position:relative; box-shadow:var(--shadow);
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .part-tag:hover{ transform:translateY(-3px); box-shadow:var(--shadow-lg); }
+  .part-tag::after{
+    /* die-cut hole, tag style */
+    content:''; position:absolute; top:14px; right:14px;
+    width:9px; height:9px; border-radius:50%; background:var(--paper);
+    border:1px solid var(--line);
+  }
+  .part-tag .ref{
+    font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--amber-dark);
+    letter-spacing:0.5px; display:block; margin-bottom:10px;
+  }
+  .part-tag .icon{
+    width:34px; height:34px; margin-bottom:12px;
+  }
+  .part-tag .icon svg{ width:100%; height:100%; stroke:var(--ink); }
+  .part-tag h3{ font-size:15.5px; font-weight:600; margin-bottom:5px; font-family:'Inter',sans-serif; }
+  .part-tag p{ font-size:13px; color:var(--steel); margin:0; line-height:1.45; }
+
+  /* ============ TAPEÇARIA SPOTLIGHT ============ */
+  .spotlight{
+    background:var(--ink); color:var(--paper); border-radius:10px;
+    display:grid; gap:0; overflow:hidden;
+  }
+  @media (min-width:800px){ .spotlight{ grid-template-columns:1fr 1fr; align-items:stretch; } }
+  .spotlight-text{ padding:34px 26px; }
+  .spotlight .eyebrow{ background:rgba(228,162,44,0.15); color:var(--amber); }
+  .spotlight .eyebrow::before{ background:var(--amber); }
+  .spotlight h2{ color:var(--paper); font-size:clamp(24px,5vw,32px); margin-bottom:12px; }
+  .spotlight p{ color:#C9CCD1; font-size:15.5px; max-width:46ch; }
+  .spotlight-list{ margin:18px 0 24px; display:flex; flex-direction:column; gap:9px; }
+  .spotlight-list li{ display:flex; gap:9px; font-size:14px; color:#DCDEE2; align-items:flex-start; }
+  .spotlight-list svg{ width:16px; height:16px; flex-shrink:0; margin-top:3px; stroke:var(--amber); }
+
+  .foto-placeholder{
+    background:repeating-linear-gradient(135deg, rgba(255,255,255,0.04) 0 10px, rgba(255,255,255,0.01) 10px 20px);
+    border:1px dashed rgba(239,237,229,0.3);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
+    min-height:220px; color:#9AA0AA; font-family:'JetBrains Mono',monospace; font-size:11.5px;
+    text-align:center; padding:20px;
+  }
+  .foto-placeholder svg{ width:30px; height:30px; opacity:.6; }
+  .spotlight .foto-placeholder{ min-height:100%; border-left:1px solid rgba(239,237,229,0.12); border-top:0; border-right:0; border-bottom:0; }
+
+  /* light-background placeholder variant */
+  .foto-placeholder.light{
+    background:repeating-linear-gradient(135deg, rgba(26,27,29,0.03) 0 10px, rgba(26,27,29,0.01) 10px 20px);
+    border:1px dashed var(--line); color:var(--steel-light); border-radius:6px;
+  }
+
+  /* ============ WHY US ============ */
+  .why-grid{ display:grid; gap:16px; }
+  @media (min-width:760px){ .why-grid{ grid-template-columns:repeat(3,1fr); } }
+  .why-item{ padding:4px 0; }
+  .why-item .num{ font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--rust); display:block; margin-bottom:8px; }
+  .why-item h3{ font-size:17px; margin-bottom:6px; font-family:'Inter',sans-serif; font-weight:700; }
+  .why-item p{ color:var(--steel); font-size:14.5px; margin:0; }
+
+  /* ============ GALLERY ============ */
+  .gallery-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+  @media (min-width:640px){ .gallery-grid{ grid-template-columns:repeat(3,1fr); } }
+  .gallery-grid .foto-placeholder{ min-height:130px; border-radius:6px; }
+  @media (min-width:640px){ .gallery-grid .foto-placeholder{ min-height:170px; } }
+
+  /* ============ FORM ============ */
+  .form-section-grid{ display:grid; gap:26px; }
+  @media (min-width:900px){ .form-section-grid{ grid-template-columns:1fr 1.15fr; align-items:start; } }
+  .form-side p{ color:var(--steel); font-size:15px; }
+  .form-side .contact-line{
+    display:flex; align-items:center; gap:10px; margin-top:16px; font-size:15px; font-weight:600;
+  }
+  .form-side .contact-line svg{ width:19px; height:19px; stroke:var(--rust); flex-shrink:0; }
+
+  form.orcamento{
+    background:var(--white); border:1px solid var(--line); border-radius:8px;
+    padding:24px 20px; box-shadow:var(--shadow);
+  }
+  .field{ margin-bottom:16px; }
+  .field label{ display:block; font-size:13px; font-weight:600; margin-bottom:6px; color:var(--ink); }
+  .field input, .field select, .field textarea{
+    width:100%; padding:13px 14px; border:1px solid var(--line); border-radius:6px;
+    font-size:15.5px; font-family:'Inter',sans-serif; background:var(--paper); color:var(--ink);
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{
+    outline:2px solid var(--amber); outline-offset:1px; background:var(--white);
+  }
+  .field textarea{ min-height:100px; resize:vertical; }
+  .form-note{ font-size:12px; color:var(--steel-light); margin-top:10px; text-align:center; }
+
+  /* ============ MAP ============ */
+  .map-grid{ display:grid; gap:20px; }
+  @media (min-width:860px){ .map-grid{ grid-template-columns:1fr 1fr; align-items:stretch; } }
+  .map-embed{ border-radius:8px; overflow:hidden; border:1px solid var(--line); min-height:280px; box-shadow:var(--shadow); }
+  .map-embed iframe{ width:100%; height:100%; min-height:280px; border:0; display:block; }
+  .map-info{
+    background:var(--white); border:1px solid var(--line); border-radius:8px; padding:26px 22px;
+    display:flex; flex-direction:column; justify-content:center; gap:16px;
+  }
+  .map-info .addr{ font-size:16.5px; font-weight:600; line-height:1.5; }
+  .map-info .addr span{ display:block; font-weight:400; color:var(--steel); font-size:14px; margin-top:4px; }
+
+  /* ============ FOOTER ============ */
+  footer{ background:var(--ink); color:#C9CCD1; padding:40px 0 110px; }
+  @media (min-width:760px){ footer{ padding-bottom:44px; } }
+  .footer-grid{ display:grid; gap:26px; }
+  @media (min-width:760px){ .footer-grid{ grid-template-columns:1.3fr 1fr 1fr; } }
+  footer h4{ color:var(--paper); font-family:'Oswald',sans-serif; font-size:15px; margin-bottom:12px; letter-spacing:0.4px; }
+  footer p, footer li{ font-size:13.5px; line-height:1.7; }
+  footer a.flink{ display:block; color:#C9CCD1; }
+  footer a.flink:hover{ color:var(--amber); }
+  .footer-logo{ display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+  .footer-bottom{
+    margin-top:32px; padding-top:20px; border-top:1px solid rgba(239,237,229,0.12);
+    font-size:12px; color:#7C828C; display:flex; flex-wrap:wrap; gap:8px; justify-content:space-between;
+  }
+  .social-row{ display:flex; gap:10px; margin-top:6px; }
+  .social-row a{
+    width:36px; height:36px; border:1px solid rgba(239,237,229,0.22); border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .social-row svg{ width:16px; height:16px; }
+
+  /* ============ FLOATING WHATSAPP ============ */
+  .float-wa{
+    position:fixed; right:16px; bottom:16px; z-index:70;
+    width:58px; height:58px; border-radius:50%; background:var(--wa-green);
+    display:flex; align-items:center; justify-content:center; box-shadow:0 6px 18px rgba(0,0,0,0.28);
+  }
+  .float-wa svg{ width:28px; height:28px; }
+  .float-wa:active{ transform:scale(0.94); }
+
+  /* small screen safe: no horizontal overflow anywhere */
+  html, body{ max-width:100%; overflow-x:hidden; }
+
+  @media (min-width:960px){
+    .desktop-nav{
+      display:flex; gap:26px; align-items:center; font-size:14px; font-weight:600;
+    }
+    .desktop-nav a:hover{ color:var(--rust); }
+    .burger, .mobile-nav, .nav-overlay{ display:none; }
+    .hero-grid{ grid-template-columns:1.05fr 0.85fr; }
+    .hero-visual{ display:block; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="site">
+  <div class="header-inner">
+    <div class="logo-slot">
+      <!-- Trocar por <img src="logo.png" alt="Tem Tudo Auto Acessórios"> quando a logo oficial estiver pronta -->
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#EFEDE5" stroke-width="1.8"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13"/><path d="M3 13h18v4a1 1 0 0 1-1 1h-1.5a1 1 0 0 1-1-1v-1H6.5v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-4z"/><circle cx="7" cy="17" r="1.2"/><circle cx="17" cy="17" r="1.2"/></svg>
+      </div>
+      <div class="logo-text">
+        <strong>TEM TUDO</strong>
+        <span>Acessórios &amp; Tapeçaria</span>
+      </div>
+    </div>
+
+    <nav class="desktop-nav">
+      <a href="#produtos">Produtos</a>
+      <a href="#tapecaria">Tapeçaria</a>
+      <a href="#galeria">Galeria</a>
+      <a href="#orcamento">Orçamento</a>
+      <a href="#mapa">Endereço</a>
+    </nav>
+
+    <div class="header-actions">
+      <a class="icon-btn" href="tel:+551434962511" aria-label="Ligar para a loja">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#1A1B1D" stroke-width="1.8" stroke-linecap="round"><path d="M22 16.9v2a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h2a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.4 2.1L7.1 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.9 2.2z"/></svg>
+      </a>
+      <button class="burger" id="burgerBtn" aria-label="Abrir menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="nav-overlay" id="navOverlay"></div>
+<nav class="mobile-nav" id="mobileNav" aria-label="Menu principal">
+  <button class="close-nav" id="closeNav" aria-label="Fechar menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+  </button>
+  <a class="nav-link" href="#produtos">Produtos</a>
+  <a class="nav-link" href="#tapecaria">Tapeçaria</a>
+  <a class="nav-link" href="#galeria">Galeria</a>
+  <a class="nav-link" href="#orcamento">Orçamento</a>
+  <a class="nav-link" href="#mapa">Endereço</a>
+  <div class="nav-contact">
+    <a href="tel:+551434962511">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.9v2a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h2a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.4 2.1L7.1 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.9 2.2z"/></svg>
+      (14) 3496-2511
+    </a>
+    <a href="#" id="navWaLink">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.44 1.32 4.94L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.95 6.45 17.5 2 12.04 2zm0 18.13a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.14.82.84-3.06-.2-.31a8.22 8.22 0 1 1 6.99 3.88z"/></svg>
+      Chamar no WhatsApp
+    </a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Loja em Tupã · SP</span>
+      <h1>Acessório, peça ou <em>estofado</em>. Você resolve aqui.</h1>
+      <p class="lead">Acessórios automotivos, autopeças multimarcas e tapeçaria — atendimento presencial no Centro de Tupã, para carros de qualquer marca.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-wa btn-block" id="heroWaLink" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.44 1.32 4.94L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.95 6.45 17.5 2 12.04 2zm0 18.13a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.14.82.84-3.06-.2-.31a8.22 8.22 0 1 1 6.99 3.88z"/></svg>
+          Pedir orçamento no WhatsApp
+        </a>
+        <a class="btn btn-call btn-block" href="tel:+551434962511">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.9v2a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h2a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.4 2.1L7.1 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.9 2.2z"/></svg>
+          (14) 3496-2511
+        </a>
+      </div>
+      <div class="hero-tags">
+        <span>MULTIMARCAS</span>
+        <span>CENTRO DE TUPÃ</span>
+        <span>ATENDIMENTO PRESENCIAL</span>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="pegboard">
+        <div class="peg"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L2 19l3 3 7.3-7.3a4 4 0 0 0 5.4-5.4l-2.8 2.8-2-2 2.8-2.8z"/></svg></div>
+        <div class="peg"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="9" width="16" height="10" rx="1.5"/><path d="M8 9V6a4 4 0 0 1 8 0v3"/></svg></div>
+        <div class="peg"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-12M6 21l3-3M15 6l3-3"/></svg></div>
+        <div class="peg"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 13.5a1.7 1.7 0 0 0 .34 1.87l.06.06a2.06 2.06 0 1 1-2.9 2.9l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1 1.55V20a2.06 2.06 0 1 1-4.12 0v-.09a1.7 1.7 0 0 0-1.1-1.55 1.7 1.7 0 0 0-1.88.34l-.06.06a2.06 2.06 0 1 1-2.9-2.9l.06-.06a1.7 1.7 0 0 0 .34-1.87 1.7 1.7 0 0 0-1.55-1H4a2.06 2.06 0 1 1 0-4.12h.09A1.7 1.7 0 0 0 5.64 9.7 1.7 1.7 0 0 0 5.3 7.83l-.06-.06a2.06 2.06 0 1 1 2.9-2.9l.06.06a1.7 1.7 0 0 0 1.87.34H10a1.7 1.7 0 0 0 1-1.55V3.6a2.06 2.06 0 1 1 4.12 0v.09a1.7 1.7 0 0 0 1 1.55 1.7 1.7 0 0 0 1.87-.34l.06-.06a2.06 2.06 0 1 1 2.9 2.9l-.06.06a1.7 1.7 0 0 0-.34 1.87V10a1.7 1.7 0 0 0 1.55 1H20a2.06 2.06 0 1 1 0 4.12h-.09a1.7 1.7 0 0 0-1.51 1z"/></svg></div>
+        <div class="peg"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M4 12a8 8 0 0 1 16 0M4 12a8 8 0 0 0 16 0"/><circle cx="12" cy="12" r="1.4"/></svg></div>
+        <div class="peg"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11l1.5-4.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 11"/><rect x="3" y="11" width="18" height="6" rx="1.3"/><circle cx="7.5" cy="17" r="1.1"/><circle cx="16.5" cy="17" r="1.1"/></svg></div>
+        <div class="peg"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M4.2 6.2l2.1 2.1M17.7 15.7l2.1 2.1M3 12h3M18 12h3M4.2 17.8l2.1-2.1M17.7 8.3l2.1-2.1"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <div class="peg"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="16" rx="1.5"/><path d="M9 8h6M9 12h6M9 16h3"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chip-strip">
+    <a href="#produtos">Acessórios</a>
+    <a href="#produtos">Travas elétricas</a>
+    <a href="#produtos">Vidros elétricos</a>
+    <a href="#produtos">Iluminação</a>
+    <a href="#produtos">Canaletas</a>
+    <a href="#produtos">Maçanetas</a>
+    <a href="#tapecaria">Tapeçaria</a>
+    <a href="#produtos">Peças multimarcas</a>
+  </div>
+</section>
+
+<!-- ============ CATEGORIAS / PRODUTOS ============ -->
+<section id="produtos">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>O que você encontra na loja</h2>
+      <p>Peças e acessórios para veículos multimarcas, com atendimento para instalação e reparo.</p>
+    </div>
+
+    <div class="tag-grid">
+      <div class="part-tag reveal">
+        <span class="ref">REF. 101</span>
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M4.2 6.2l2.1 2.1M17.7 15.7l2.1 2.1M3 12h3M18 12h3M4.2 17.8l2.1-2.1M17.7 8.3l2.1-2.1"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <h3>Acessórios automotivos</h3>
+        <p>Itens para deixar o carro com a sua cara.</p>
+      </div>
+      <div class="part-tag reveal">
+        <span class="ref">REF. 102</span>
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="9" width="16" height="10" rx="1.5"/><path d="M8 9V6a4 4 0 0 1 8 0v3"/></svg></div>
+        <h3>Travas elétricas</h3>
+        <p>Instalação e reparo em qualquer modelo.</p>
+      </div>
+      <div class="part-tag reveal">
+        <span class="ref">REF. 103</span>
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="16" rx="1.5"/><path d="M9 8h6M9 12h6M9 16h3"/></svg></div>
+        <h3>Vidros elétricos</h3>
+        <p>Kits novos e conserto de vidro elétrico.</p>
+      </div>
+      <div class="part-tag reveal">
+        <span class="ref">REF. 104</span>
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-12M6 21l3-3M15 6l3-3"/></svg></div>
+        <h3>Lanternas e iluminação</h3>
+        <p>Lanternas, faróis e luzes de reposição.</p>
+      </div>
+      <div class="part-tag reveal">
+        <span class="ref">REF. 105</span>
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M4 12a8 8 0 0 1 16 0M4 12a8 8 0 0 0 16 0"/></svg></div>
+        <h3>Canaletas</h3>
+        <p>Canaletas e borrachas de vedação.</p>
+      </div>
+      <div class="part-tag reveal">
+        <span class="ref">REF. 106</span>
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11l1.5-4.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 11"/><rect x="3" y="11" width="18" height="6" rx="1.3"/><circle cx="7.5" cy="17" r="1.1"/><circle cx="16.5" cy="17" r="1.1"/></svg></div>
+        <h3>Maçanetas</h3>
+        <p>Maçanetas internas e externas.</p>
+      </div>
+      <div class="part-tag reveal">
+        <span class="ref">REF. 107</span>
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17v-4a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v4M4 17a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1h10v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1M8 10V7a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v3"/></svg></div>
+        <h3>Tapeçaria automotiva</h3>
+        <p>Bancos, forração e reforma de estofado.</p>
+      </div>
+      <div class="part-tag reveal">
+        <span class="ref">REF. 108</span>
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 13.5a1.7 1.7 0 0 0 .34 1.87l.06.06a2.06 2.06 0 1 1-2.9 2.9l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1 1.55V20a2.06 2.06 0 1 1-4.12 0v-.09a1.7 1.7 0 0 0-1.1-1.55 1.7 1.7 0 0 0-1.88.34l-.06.06a2.06 2.06 0 1 1-2.9-2.9l.06-.06a1.7 1.7 0 0 0 .34-1.87 1.7 1.7 0 0 0-1.55-1H4a2.06 2.06 0 1 1 0-4.12h.09A1.7 1.7 0 0 0 5.64 9.7 1.7 1.7 0 0 0 5.3 7.83l-.06-.06a2.06 2.06 0 1 1 2.9-2.9l.06.06a1.7 1.7 0 0 0 1.87.34H10a1.7 1.7 0 0 0 1-1.55V3.6a2.06 2.06 0 1 1 4.12 0v.09a1.7 1.7 0 0 0 1 1.55 1.7 1.7 0 0 0 1.87-.34l.06-.06a2.06 2.06 0 1 1 2.9 2.9l-.06.06a1.7 1.7 0 0 0-.34 1.87V10a1.7 1.7 0 0 0 1.55 1H20a2.06 2.06 0 1 1 0 4.12h-.09a1.7 1.7 0 0 0-1.51 1z"/></svg></div>
+        <h3>Peças multimarcas</h3>
+        <p>Peças de reposição para diversos veículos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TAPEÇARIA SPOTLIGHT ============ -->
+<section id="tapecaria" class="section-alt">
+  <div class="wrap">
+    <div class="spotlight reveal">
+      <div class="spotlight-text">
+        <span class="eyebrow">Serviço próprio</span>
+        <h2>Tapeçaria automotiva</h2>
+        <p>Reforma de bancos, troca de espuma, forração de teto e acabamento interno. Traga o carro e a gente avalia na hora.</p>
+        <ul class="spotlight-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Reforma de bancos e encostos</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Troca de espuma e forração de teto</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Acabamento interno sob medida</li>
+        </ul>
+        <a class="btn btn-dark" id="tapecariaWaLink" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.44 1.32 4.94L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.95 6.45 17.5 2 12.04 2zm0 18.13a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.14.82.84-3.06-.2-.31a8.22 8.22 0 1 1 6.99 3.88z"/></svg>
+          Falar sobre o serviço
+        </a>
+      </div>
+      <div class="foto-placeholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-4-4 3-3-2-5 4"/></svg>
+        ESPAÇO RESERVADO<br>foto real da tapeçaria
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ POR QUE A GENTE ============ -->
+<section>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Por que comprar aqui</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-item reveal">
+        <span class="num mono">LOJA FÍSICA</span>
+        <h3>No Centro de Tupã</h3>
+        <p>Endereço fixo, atendimento presencial, sem enrolação.</p>
+      </div>
+      <div class="why-item reveal">
+        <span class="num mono">MULTIMARCAS</span>
+        <h3>Qualquer veículo</h3>
+        <p>Trabalhamos com peças e acessórios para diferentes marcas e modelos.</p>
+      </div>
+      <div class="why-item reveal">
+        <span class="num mono">SEM COMPROMISSO</span>
+        <h3>Orçamento rápido</h3>
+        <p>Manda sua dúvida pelo WhatsApp e a gente responde no mesmo dia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALERIA ============ -->
+<section id="galeria" class="section-alt">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Fotos da loja e dos serviços</h2>
+      <p>Espaço reservado para fotos reais — produtos, loja e trabalhos de tapeçaria já feitos.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="foto-placeholder light reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-4-4 3-3-2-5 4"/></svg>FOTO EM BREVE</div>
+      <div class="foto-placeholder light reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-4-4 3-3-2-5 4"/></svg>FOTO EM BREVE</div>
+      <div class="foto-placeholder light reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-4-4 3-3-2-5 4"/></svg>FOTO EM BREVE</div>
+      <div class="foto-placeholder light reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-4-4 3-3-2-5 4"/></svg>FOTO EM BREVE</div>
+      <div class="foto-placeholder light reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-4-4 3-3-2-5 4"/></svg>FOTO EM BREVE</div>
+      <div class="foto-placeholder light reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-4-4 3-3-2-5 4"/></svg>FOTO EM BREVE</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ORÇAMENTO (FORMULÁRIO) ============ -->
+<section id="orcamento">
+  <div class="wrap">
+    <div class="form-section-grid">
+      <div class="form-side reveal">
+        <span class="eyebrow">Fale com a loja</span>
+        <h2>Pedir orçamento</h2>
+        <p>Preencha os dados abaixo. Ao enviar, o formulário abre o WhatsApp já com sua mensagem pronta — é só confirmar o envio.</p>
+        <a class="contact-line" href="tel:+551434962511">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.9v2a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h2a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.4 2.1L7.1 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.9 2.2z"/></svg>
+          (14) 3496-2511
+        </a>
+      </div>
+
+      <form class="orcamento reveal" id="orcamentoForm">
+        <div class="field">
+          <label for="fname">Nome</label>
+          <input type="text" id="fname" name="nome" placeholder="Seu nome" required>
+        </div>
+        <div class="field">
+          <label for="fphone">Telefone / WhatsApp</label>
+          <input type="tel" id="fphone" name="telefone" placeholder="(14) 90000-0000" required>
+        </div>
+        <div class="field">
+          <label for="fcat">O que você precisa</label>
+          <select id="fcat" name="categoria">
+            <option>Acessórios automotivos</option>
+            <option>Autopeças</option>
+            <option>Tapeçaria automotiva</option>
+            <option>Outro assunto</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="fmsg">Mensagem</label>
+          <textarea id="fmsg" name="mensagem" placeholder="Conte o que você precisa (modelo do carro, peça, etc.)"></textarea>
+        </div>
+        <button type="submit" class="btn btn-wa btn-block">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.44 1.32 4.94L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.95 6.45 17.5 2 12.04 2zm0 18.13a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.14.82.84-3.06-.2-.31a8.22 8.22 0 1 1 6.99 3.88z"/></svg>
+          Enviar pelo WhatsApp
+        </button>
+        <p class="form-note">Nenhum dado é salvo neste site — o envio abre diretamente o seu WhatsApp.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MAPA ============ -->
+<section id="mapa" class="section-alt">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Onde estamos</h2>
+      <p>Atendimento presencial no Centro de Tupã.</p>
+    </div>
+    <div class="map-grid">
+      <div class="map-embed reveal">
+        <iframe
+          src="https://www.google.com/maps?q=Rua+Caingangs,+41,+Centro,+Tup%C3%A3+-+SP,+17600-070&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Mapa - Tem Tudo Auto Acessórios e Tapeçaria">
+        </iframe>
+      </div>
+      <div class="map-info reveal">
+        <a class="addr" href="https://www.google.com/maps/dir/?api=1&destination=Rua+Caingangs%2C+41%2C+Centro%2C+Tup%C3%A3+-+SP%2C+17600-070" target="_blank" rel="noopener">
+          Rua Caingangs, 41 — Centro
+          <span>Tupã - SP, CEP 17600-070</span>
+        </a>
+        <a class="btn btn-outline" href="https://www.google.com/maps/dir/?api=1&destination=Rua+Caingangs%2C+41%2C+Centro%2C+Tup%C3%A3+-+SP%2C+17600-070" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+          Como chegar
+        </a>
+        <a class="btn btn-call" href="tel:+551434962511">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.9v2a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h2a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.4 2.1L7.1 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.9 2.2z"/></svg>
+          (14) 3496-2511
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap footer-grid">
+    <div>
+      <div class="footer-logo">
+        <div class="logo-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#EFEDE5" stroke-width="1.8"><path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13"/><path d="M3 13h18v4a1 1 0 0 1-1 1h-1.5a1 1 0 0 1-1-1v-1H6.5v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-4z"/><circle cx="7" cy="17" r="1.2"/><circle cx="17" cy="17" r="1.2"/></svg>
+        </div>
+        <div class="logo-text">
+          <strong style="color:#EFEDE5;">TEM TUDO</strong>
+          <span>Acessórios &amp; Tapeçaria</span>
+        </div>
+      </div>
+      <p>Acessórios automotivos, autopeças multimarcas e tapeçaria automotiva em Tupã - SP.</p>
+      <div class="social-row">
+        <!-- Adicionar links reais do Instagram / Facebook quando existirem -->
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="#C9CCD1" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="#C9CCD1" stroke-width="1.6"><path d="M14 9h3V6h-3a4 4 0 0 0-4 4v2H7v3h3v6h3v-6h3l1-3h-4v-2a1 1 0 0 1 1-1z"/></svg></a>
+      </div>
+    </div>
+
+    <div>
+      <h4>Contato</h4>
+      <a class="flink" href="tel:+551434962511">(14) 3496-2511</a>
+      <a class="flink" id="footerWaLink" href="#" target="_blank" rel="noopener">WhatsApp</a>
+      <a class="flink" href="https://www.google.com/maps/dir/?api=1&destination=Rua+Caingangs%2C+41%2C+Centro%2C+Tup%C3%A3+-+SP%2C+17600-070" target="_blank" rel="noopener">Rua Caingangs, 41 — Centro, Tupã - SP</a>
+    </div>
+
+    <div>
+      <h4>Horário</h4>
+      <!-- HORÁRIO: confirmar e ajustar os dias/horas reais de funcionamento -->
+      <p>Segunda a sexta: 8h às 18h<br>Sábado: 8h às 12h</p>
+    </div>
+  </div>
+
+  <div class="wrap footer-bottom">
+    <span>© <span id="year"></span> Tem Tudo Auto Acessórios e Tapeçaria</span>
+    <span>Tupã - SP</span>
+  </div>
+</footer>
+
+<!-- ============ BOTÃO FLUTUANTE WHATSAPP ============ -->
+<a class="float-wa" id="floatWaLink" href="#" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 24 24" fill="#fff"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.44 1.32 4.94L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.95 6.45 17.5 2 12.04 2zm0 18.13a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.14.82.84-3.06-.2-.31a8.22 8.22 0 1 1 6.99 3.88zm4.52-6.16c-.25-.12-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.13-.17.24-.64.8-.78.97-.14.16-.29.18-.53.06-.25-.12-1.04-.38-1.99-1.22-.73-.66-1.23-1.46-1.37-1.71-.14-.24-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.24.25-.41.08-.16.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.42-.14 0-.31-.02-.47-.02s-.43.06-.66.31c-.23.24-.86.85-.86 2.06s.89 2.39 1.01 2.55c.12.16 1.75 2.66 4.24 3.73.59.26 1.06.41 1.42.52.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.14-1.18-.06-.1-.22-.16-.47-.28z"/></svg>
+</a>
+
+<script>
+(function(){
+  /* ===================== CONFIGURAÇÃO ===================== */
+  // ALTERAR AQUI: número de WhatsApp real da loja (com DDI 55 + DDD + número, só dígitos)
+  var CONFIG_WHATSAPP = "5514999999999"; // <- placeholder, trocar pelo WhatsApp oficial
+  var MENSAGEM_PADRAO = "Olá! Vim pelo site da Tem Tudo e gostaria de um orçamento.";
+
+  function waLink(msg){
+    return "https://wa.me/" + CONFIG_WHATSAPP + "?text=" + encodeURIComponent(msg || MENSAGEM_PADRAO);
+  }
+
+  ["heroWaLink","tapecariaWaLink","navWaLink","footerWaLink","floatWaLink"].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el){ el.href = waLink(); }
+  });
+
+  /* ===================== MENU MOBILE ===================== */
+  var burger = document.getElementById("burgerBtn");
+  var nav = document.getElementById("mobileNav");
+  var overlay = document.getElementById("navOverlay");
+  var closeBtn = document.getElementById("closeNav");
+
+  function openNav(){
+    nav.classList.add("open"); overlay.classList.add("open");
+    burger.classList.add("active"); burger.setAttribute("aria-expanded","true");
+    document.body.style.overflow = "hidden";
+  }
+  function closeNav(){
+    nav.classList.remove("open"); overlay.classList.remove("open");
+    burger.classList.remove("active"); burger.setAttribute("aria-expanded","false");
+    document.body.style.overflow = "";
+  }
+  burger.addEventListener("click", function(){
+    nav.classList.contains("open") ? closeNav() : openNav();
+  });
+  overlay.addEventListener("click", closeNav);
+  closeBtn.addEventListener("click", closeNav);
+  document.querySelectorAll(".nav-link").forEach(function(l){ l.addEventListener("click", closeNav); });
+
+  /* ===================== FORMULÁRIO -> WHATSAPP ===================== */
+  var form = document.getElementById("orcamentoForm");
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var nome = document.getElementById("fname").value.trim();
+    var tel = document.getElementById("fphone").value.trim();
+    var cat = document.getElementById("fcat").value;
+    var msg = document.getElementById("fmsg").value.trim();
+
+    var texto = "Olá! Meu nome é " + nome + ".\n" +
+                "Assunto: " + cat + "\n" +
+                "Telefone: " + tel + "\n" +
+                (msg ? ("Mensagem: " + msg) : "Gostaria de um orçamento.");
+
+    window.open(waLink(texto), "_blank");
+  });
+
+  /* ===================== REVEAL ON SCROLL ===================== */
+  var reveals = document.querySelectorAll(".reveal");
+  if("IntersectionObserver" in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add("in");
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(function(el){ io.observe(el); });
+  } else {
+    reveals.forEach(function(el){ el.classList.add("in"); });
+  }
+
+  /* ===================== ANO NO RODAPÉ ===================== */
+  document.getElementById("year").textContent = new Date().getFullYear();
+})();
+</script>
+
+</body>
+</html>
